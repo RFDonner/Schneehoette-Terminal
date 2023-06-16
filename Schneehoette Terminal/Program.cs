@@ -1,6 +1,9 @@
 ﻿using Schneehoette_Terminal;
+using Schneehoette_Terminal.Texts;
 
 Console.ForegroundColor = ConsoleColor.Green;
+PrisonerNameGenerator.InitNameGenerator();
+TerminalState.InitPrisoners();
 while (true)
 {
     if (TerminalState.LoggedIn)

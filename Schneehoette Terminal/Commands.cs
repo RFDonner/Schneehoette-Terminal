@@ -56,7 +56,15 @@ namespace Schneehoette_Terminal
 
         internal static void ExecuteList()
         {
-            throw new NotImplementedException();
+            foreach(var prisoner in TerminalState.Prisoners)
+            {
+                ConsWriter.Write(prisoner.ToString());
+                if (Console.ForegroundColor == ConsoleColor.Green) { Console.ForegroundColor = ConsoleColor.DarkGreen; }
+
+                else { Console.ForegroundColor = ConsoleColor.Green; }
+            }
+
+            Console.ForegroundColor = ConsoleColor.Green;
         }
     }
 }
