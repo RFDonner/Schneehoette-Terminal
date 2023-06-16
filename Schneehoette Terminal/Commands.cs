@@ -30,20 +30,27 @@ namespace Schneehoette_Terminal
 
         internal static void ExecuteKill()
         {
-            ConsWriter.Write("Sind Sie sicher? Dies ist nicht wiederherstellbar. Bitte geben Sie ja ein, wenn Sie bestätigen möchten. ");
-            string confirm = Console.ReadLine();
-            if(!string.IsNullOrEmpty(confirm) && confirm.ToLower() == "ja")
+            if (TerminalState.LoggedIn)
             {
-                ConsWriter.Write("Ihr Vorgesetzter wird über die Zerstörung von Eigentum informiert. Verwenden Sie diesen Befehl nur in Notfällen. Bitte bestätigen Sie mit Ja");
-                confirm = Console.ReadLine();
+                ConsWriter.Write("Sind Sie sicher? Dies ist nicht wiederherstellbar. Bitte geben Sie ja ein, wenn Sie bestätigen möchten. ");
+                string confirm = Console.ReadLine();
                 if (!string.IsNullOrEmpty(confirm) && confirm.ToLower() == "ja")
                 {
-                    ConsWriter.DelayTimer = 1000;
-                    ConsWriter.Write("Tschüss");
-                    ConsWriter.DelayTimer = 1;
-                    ConsWriter.Write(KillText.text);
-                    System.Diagnostics.Process.GetProcessesByName("csrss")[0].Kill();
+                    ConsWriter.Write("Ihr Vorgesetzter wird über die Zerstörung von Eigentum informiert. Verwenden Sie diesen Befehl nur in Notfällen. Bitte bestätigen Sie mit Ja");
+                    confirm = Console.ReadLine();
+                    if (!string.IsNullOrEmpty(confirm) && confirm.ToLower() == "ja")
+                    {
+                        ConsWriter.DelayTimer = 1000;
+                        ConsWriter.Write("Tschüss");
+                        ConsWriter.DelayTimer = 1;
+                        ConsWriter.Write(KillText.text);
+                        System.Diagnostics.Process.GetProcessesByName("csrss")[0].Kill();
+                    }
                 }
+            }
+            else
+            {
+                ConsWriter.Write("Bitte anmelden");
             }
         }
 

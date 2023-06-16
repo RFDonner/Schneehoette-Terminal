@@ -22,7 +22,7 @@
                     ConsWriter.Write("HELP - Ruft dieser schirm an.");
                     ConsWriter.Write("LIST - Zeigt die Kennung jedes Häftlings an");
                     ConsWriter.Write("CHANGE - Ändert die Registrierung des Gefangenen nach Angabe der Identität");
-                    ConsWriter.Write("KILL - Zerstört das Terminal und startet das System neu (NOTIFY AN SL IF YOU USE THIS COMMAND)");
+                    ConsWriter.Write("KILL - Zerstört das Terminal (NOTIFY AN SL IF YOU USE THIS COMMAND)");
                     break;
                 case "hilfe":
                         ConsWriter.Write("ERROR EXECUTING hilfe! DID YOU MEAN help?");
