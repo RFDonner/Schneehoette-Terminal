@@ -2,13 +2,14 @@
 {
     public static class ConsWriter
     {
+        public static int DelayTimer = 10;
         public static void Write(string text)
         {
             var charArray = text.ToCharArray();
             for (int i = 0; i < charArray.Length; i++)
             {
                 Console.Write(charArray[i]);
-                Thread.Sleep(2);
+                Thread.Sleep(DelayTimer);
             }
 
             Console.WriteLine();

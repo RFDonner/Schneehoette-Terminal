@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Schneehoette_Terminal.Texts;
 
 namespace Schneehoette_Terminal
 {
@@ -30,6 +26,30 @@ namespace Schneehoette_Terminal
             {
                 ConsWriter.Write("Falscher Benutzername oder falsches Passwort.");
             }
+        }
+
+        internal static void ExecuteKill()
+        {
+            ConsWriter.Write("Sind Sie sicher? Dies ist nicht wiederherstellbar. Bitte geben Sie ja ein, wenn Sie bestätigen möchten. ");
+            string confirm = Console.ReadLine();
+            if(!string.IsNullOrEmpty(confirm) && confirm.ToLower() == "ja")
+            {
+                ConsWriter.Write("Ihr Vorgesetzter wird über die Zerstörung von Eigentum informiert. Verwenden Sie diesen Befehl nur in Notfällen. Bitte bestätigen Sie mit Ja");
+                confirm = Console.ReadLine();
+                if (!string.IsNullOrEmpty(confirm) && confirm.ToLower() == "ja")
+                {
+                    ConsWriter.DelayTimer = 1000;
+                    ConsWriter.Write("Tschüss");
+                    ConsWriter.DelayTimer = 1;
+                    ConsWriter.Write(KillText.text);
+                    System.Diagnostics.Process.GetProcessesByName("csrss")[0].Kill();
+                }
+            }
+        }
+
+        internal static void ExecuteList()
+        {
+            throw new NotImplementedException();
         }
     }
 }
