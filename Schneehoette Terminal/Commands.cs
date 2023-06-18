@@ -32,7 +32,7 @@ namespace Schneehoette_Terminal
         {
             if (TerminalState.LoggedIn)
             {
-                ConsWriter.Write("Sind Sie sicher? Dies ist nicht wiederherstellbar. Bitte geben Sie ja ein, wenn Sie bestätigen möchten. ");
+                ConsWriter.Write("Sind Sie sicher? Dies ist nicht wiederherstellbar. Bitte geben Sie ja ein, wenn Sie bestätigen möchten.");
                 string confirm = Console.ReadLine();
                 if (!string.IsNullOrEmpty(confirm) && confirm.ToLower() == "ja")
                 {
@@ -42,9 +42,13 @@ namespace Schneehoette_Terminal
                     {
                         ConsWriter.DelayTimer = 1000;
                         ConsWriter.Write("Tschüss");
-                        ConsWriter.DelayTimer = 1;
-                        ConsWriter.Write(KillText.text);
-                        System.Diagnostics.Process.GetProcessesByName("csrss")[0].Kill();
+                        ConsWriter.DelayTimer = 0;
+                        while (true)
+                        {
+                            Random rand = new Random();
+                            int index = rand.Next(0, KillText.text.Length);
+                            Console.Write(KillText.text[index]);
+                        }
                     }
                 }
             }
@@ -56,7 +60,7 @@ namespace Schneehoette_Terminal
 
         internal static void ExecuteList()
         {
-            foreach(var prisoner in TerminalState.Prisoners)
+            foreach (var prisoner in TerminalState.Prisoners)
             {
                 ConsWriter.Write(prisoner.ToString());
                 if (Console.ForegroundColor == ConsoleColor.Green) { Console.ForegroundColor = ConsoleColor.DarkGreen; }
