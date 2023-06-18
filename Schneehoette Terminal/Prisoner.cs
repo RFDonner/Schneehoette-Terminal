@@ -1,32 +1,28 @@
 ﻿using Schneehoette_Terminal.Texts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Schneehoette_Terminal
 {
     public class Prisoner
     {
-        Guid id;
-        string name;
-        SentenceState sentence;
-        SentenceState extraSentence;
+        public readonly Guid Id;
+        public readonly string name;
+        public SentenceState sentence;
+        public SentenceState extraSentence;
 
-        static Random _R = new Random();
+        static readonly Random _R = new Random();
         public Prisoner(Guid id, string name, SentenceState state)
         {
 
-            this.id = id;
+            this.Id = id;
             sentence = state;
             this.name = name;
         }
         public Prisoner()
         {
-            id = Guid.NewGuid();
+            Id = Guid.NewGuid();
             sentence = PickSentenceState();
-            this.name = PrisonerNameGenerator.GenerateName();
+            name = PrisonerNameGenerator.GenerateName();
         }
 
         public SentenceState PickSentenceState(bool isExtraSentence = false)
@@ -47,7 +43,7 @@ namespace Schneehoette_Terminal
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append($"{id}: {name}: {sentence}");
+            sb.Append($"{name}: {sentence}");
             sb.Append(extraSentence == SentenceState.Todestrakt ? string.Empty : ", " + extraSentence);
             return sb.ToString();
         }

@@ -4,7 +4,7 @@
     {
         public static void ReadCommand(string command)
         {
-            if(string.IsNullOrEmpty(command))
+            if (string.IsNullOrEmpty(command))
             {
                 ConsWriter.Write("Kein Befehl gegeben, bitte versuchen Sie es nochmal.");
                 return;
@@ -25,8 +25,25 @@
                     ConsWriter.Write("KILL - Zerstört das Terminal (NOTIFY AN SL IF YOU USE THIS COMMAND)");
                     break;
                 case "hilfe":
-                        ConsWriter.Write("ERROR EXECUTING hilfe! DID YOU MEAN help?");
+                    ConsWriter.Write("ERROR EXECUTING hilfe! DID YOU MEAN help?");
+                    break;
+                case "search":
+                    if (!TerminalState.LoggedIn)
+                    {
+                        ConsWriter.Write("Bitte einloggen");
                         break;
+                    }
+                    ConsWriter.Write("Insert id of prisoner");
+                    var id = Console.ReadLine();
+                    if(Guid.TryParse(id, out Guid guidId))
+                    {
+                        Commands.ExecuteSearchPrisoner(guidId);
+                    }
+                    else
+                    {
+                        ConsWriter.Write("INVALID ID!");
+                    }
+                    break;
                 case "list":
                     Commands.ExecuteList();
                     break;

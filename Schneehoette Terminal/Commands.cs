@@ -70,5 +70,21 @@ namespace Schneehoette_Terminal
 
             Console.ForegroundColor = ConsoleColor.Green;
         }
+
+        internal static void ExecuteSearchPrisoner(Guid prisonerId)
+        {
+            if(TerminalState.LoggedIn)
+            {
+                try
+                {
+                    Prisoner prisoner = TerminalState.Prisoners.Single(p => p.Id == prisonerId);
+                    ConsWriter.Write($"{prisoner.Id}: {prisoner}");
+                }
+                catch (ArgumentNullException)
+                {
+                    ConsWriter.Write("PRISONER DOES NOT EXIST");
+                }
+            }
+        }
     }
 }
