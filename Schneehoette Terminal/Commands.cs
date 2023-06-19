@@ -91,7 +91,7 @@ namespace Schneehoette_Terminal
                             }
                         }
                     }
-                    else if (confirm.ToLower() == "n")
+                    else if (!string.IsNullOrEmpty(confirm) && confirm.ToLower() == "n")
                     {
                         return;
                     }
