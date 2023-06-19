@@ -30,7 +30,7 @@
                     ConsWriter.Write("KILL - Zerstört das Terminal (NOTIFY AN SL IF YOU USE THIS COMMAND)");
                     break;
                 case "hilfe":
-                    ConsWriter.Write("ERROR EXECUTING hilfe! DID YOU MEAN help?");
+                    ConsWriter.WriteError("ERROR EXECUTING hilfe! DID YOU MEAN help?");
                     break;
                 case "search":
                     InitSearch();
@@ -68,7 +68,7 @@
                 ConsWriter.Write("Bitte einloggen");
                 return;
             }
-            ConsWriter.Write("Insert id of prisoner");
+            ConsWriter.Write("Id des Gefangenen einfügen");
             var id = Console.ReadLine();
             if (Guid.TryParse(id, out Guid guidId))
             {
@@ -76,7 +76,7 @@
             }
             else
             {
-                ConsWriter.Write("INVALID ID!");
+                ConsWriter.WriteError("INVALID ID!");
             }
         }
     }

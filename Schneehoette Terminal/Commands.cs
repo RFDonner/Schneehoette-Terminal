@@ -36,25 +36,23 @@ namespace Schneehoette_Terminal
 
         internal static void ExecuteChange()
         {
-            ConsWriter.Write("Insert id of prisoner");
+            ConsWriter.Write("Id des Gefangenen einfügen");
             var id = Console.ReadLine();
             if (Guid.TryParse(id, out Guid guidId))
             {
-                ConsWriter.Write($"Changing:");
+                ConsWriter.Write($"Ändern:");
                 var prisoner = ExecuteSearchPrisoner(guidId);
                 if (prisoner == null) { return; }
-                ConsWriter.Write("You can change SENTENCESTATE, ");
-                ConsWriter.Write("Change? Y/N");
                 while (true)
                 {
-                    ConsWriter.Write("You can change SENTENCESTATE, ");
-                    ConsWriter.Write("Change? Y/N");
+                    ConsWriter.Write("Sie können die folgenden ändern: SENTENCESTATE, ");
+                    ConsWriter.Write("Ändern? Y/N");
                     var confirm = Console.ReadLine();
                     if (!string.IsNullOrEmpty(confirm) && confirm.ToLower() == "y")
                     {
                         while (true)
                         {
-                            ConsWriter.Write("Enter new sentence");
+                            ConsWriter.Write("neuen Strafmaß eingeben");
                             ConsWriter.Write($"0: {SentenceState.Todestrakt}");
                             ConsWriter.Write($"1: {SentenceState.Politisch}");
                             ConsWriter.Write($"2: {SentenceState.Verdachtig}");
@@ -71,7 +69,7 @@ namespace Schneehoette_Terminal
                                 var sentence = (SentenceState)result;
                                 if (sentence == prisoner.sentence)
                                 {
-                                    ConsWriter.Write($"Sentence of prisoner is already {sentence}");
+                                    ConsWriter.WriteError($"ERROR: SENTENCE {sentence} ALREADY {sentence}");
                                     return;
                                 }
                                 var tempStorage = prisoner.sentence;
@@ -79,13 +77,13 @@ namespace Schneehoette_Terminal
                                 if (sentence == SentenceState.Todestrakt || sentence == SentenceState.Tod || sentence == SentenceState.Freigegeben)
                                 {
                                     prisoner.extraSentence = tempStorage;
-                                    ConsWriter.Write($"Success! {prisoner}");
+                                    ConsWriter.Write($"SUCCESS! {prisoner}");
                                 }
                                 return;
                             }
                             else
                             {
-                                ConsWriter.Write($"{confirm} is not valid. Try again.");
+                                ConsWriter.Write($"{confirm} ist nicht gültig. Bitte erneut versuchen.");
                             }
                         }
                     }
@@ -94,7 +92,7 @@ namespace Schneehoette_Terminal
                         return;
                     }
 
-                    ConsWriter.Write($"{confirm} is not valid try again");
+                    ConsWriter.Write($"{confirm} ist nicht gültig. Bitte erneut versuchen.");
                 }
 
 
@@ -102,7 +100,7 @@ namespace Schneehoette_Terminal
             }
             else
             {
-                ConsWriter.Write("INVALID ID!");
+                ConsWriter.WriteError("INVALID ID!");
             }
         }
 
@@ -159,9 +157,9 @@ namespace Schneehoette_Terminal
                     ConsWriter.Write($"{prisoner.Id}: {prisoner}");
                     return prisoner;
                 }
-                catch (ArgumentNullException)
+                catch (InvalidOperationException)
                 {
-                    ConsWriter.Write("PRISONER DOES NOT EXIST");
+                    ConsWriter.WriteError("PRISONER DOES NOT EXIST");
                 }
             }
             return null;
