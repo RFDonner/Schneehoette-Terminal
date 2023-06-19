@@ -17,32 +17,26 @@
                     if (TerminalState.LoggedIn) ConsWriter.Write("Sie sind bereits angemeldet.");
                     else Commands.ExecuteLogin();
                     break;
+                case "logout":
+                    Commands.ExecuteLogout();
+                    break;
                 case "help":
                     ConsWriter.Write("LOGIN - Meldet Sie bei der Anwendung an");
+                    ConsWriter.Write("LOGOUT - Meldet den aktuellen Benutzer ab");
                     ConsWriter.Write("HELP - Ruft dieser schirm an.");
                     ConsWriter.Write("LIST - Zeigt die Kennung jedes Häftlings an");
-                    ConsWriter.Write("CHANGE - Ändert die Registrierung des Gefangenen nach Angabe der Identität");
+                    ConsWriter.Write("SEARCH - Suche nach einem Häftling anhand der Identität");
+                    ConsWriter.Write("CHANGE - Ändert die Registrierung des Häftlings nach Angabe der Identität");
                     ConsWriter.Write("KILL - Zerstört das Terminal (NOTIFY AN SL IF YOU USE THIS COMMAND)");
                     break;
                 case "hilfe":
                     ConsWriter.Write("ERROR EXECUTING hilfe! DID YOU MEAN help?");
                     break;
                 case "search":
-                    if (!TerminalState.LoggedIn)
-                    {
-                        ConsWriter.Write("Bitte einloggen");
-                        break;
-                    }
-                    ConsWriter.Write("Insert id of prisoner");
-                    var id = Console.ReadLine();
-                    if(Guid.TryParse(id, out Guid guidId))
-                    {
-                        Commands.ExecuteSearchPrisoner(guidId);
-                    }
-                    else
-                    {
-                        ConsWriter.Write("INVALID ID!");
-                    }
+                    InitSearch();
+                    break;
+                case "change":
+                    InitChange();
                     break;
                 case "list":
                     Commands.ExecuteList();
@@ -53,6 +47,36 @@
                 default:
                     ConsWriter.Write($"{command} ist unbekannt, bitte noch einmal versuchen.");
                     break;
+            }
+        }
+
+        private static void InitChange()
+        {
+            if (!TerminalState.LoggedIn)
+            {
+                ConsWriter.Write("Bitte einloggen");
+                return;
+            }
+
+            Commands.ExecuteChange();
+        }
+
+        private static void InitSearch()
+        {
+            if (!TerminalState.LoggedIn)
+            {
+                ConsWriter.Write("Bitte einloggen");
+                return;
+            }
+            ConsWriter.Write("Insert id of prisoner");
+            var id = Console.ReadLine();
+            if (Guid.TryParse(id, out Guid guidId))
+            {
+                Commands.ExecuteSearchPrisoner(guidId);
+            }
+            else
+            {
+                ConsWriter.Write("INVALID ID!");
             }
         }
     }

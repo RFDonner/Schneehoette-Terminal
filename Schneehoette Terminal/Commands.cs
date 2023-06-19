@@ -2,9 +2,9 @@
 
 namespace Schneehoette_Terminal
 {
-    public static class Commands
+    internal static class Commands
     {
-        public static void ExecuteLogin()
+        internal static void ExecuteLogin()
         {
             ConsWriter.Write("Bitte geben Sie Ihren Benutzernamen ein");
             string username = Console.ReadLine();
@@ -25,6 +25,84 @@ namespace Schneehoette_Terminal
             else
             {
                 ConsWriter.Write("Falscher Benutzername oder falsches Passwort.");
+            }
+        }
+
+        internal static void ExecuteLogout()
+        {
+            TerminalState.LoggedIn = false;
+            Console.Clear();
+        }
+
+        internal static void ExecuteChange()
+        {
+            ConsWriter.Write("Insert id of prisoner");
+            var id = Console.ReadLine();
+            if (Guid.TryParse(id, out Guid guidId))
+            {
+                ConsWriter.Write($"Changing:");
+                var prisoner = ExecuteSearchPrisoner(guidId);
+                if (prisoner == null) { return; }
+                ConsWriter.Write("You can change SENTENCESTATE, ");
+                ConsWriter.Write("Change? Y/N");
+                while (true)
+                {
+                    ConsWriter.Write("You can change SENTENCESTATE, ");
+                    ConsWriter.Write("Change? Y/N");
+                    var confirm = Console.ReadLine();
+                    if (!string.IsNullOrEmpty(confirm) && confirm.ToLower() == "y")
+                    {
+                        while (true)
+                        {
+                            ConsWriter.Write("Enter new sentence");
+                            ConsWriter.Write($"0: {SentenceState.Todestrakt}");
+                            ConsWriter.Write($"1: {SentenceState.Politisch}");
+                            ConsWriter.Write($"2: {SentenceState.Verdachtig}");
+                            ConsWriter.Write($"3: {SentenceState.Tod}");
+                            ConsWriter.Write($"4: {SentenceState.Freigegeben}");
+                            ConsWriter.Write($"5: {SentenceState.Allgemein}");
+                            ConsWriter.Write($"6: {SentenceState.Staatsfeind}");
+                            ConsWriter.Write($"7: {SentenceState.Korruption}");
+                            confirm = Console.ReadLine();
+                            var pickedState = int.TryParse(confirm, out int result);
+
+                            if (pickedState && result >= 0 && result < 8)
+                            {
+                                var sentence = (SentenceState)result;
+                                if (sentence == prisoner.sentence)
+                                {
+                                    ConsWriter.Write($"Sentence of prisoner is already {sentence}");
+                                    return;
+                                }
+                                var tempStorage = prisoner.sentence;
+                                prisoner.sentence = (SentenceState)result;
+                                if (sentence == SentenceState.Todestrakt || sentence == SentenceState.Tod || sentence == SentenceState.Freigegeben)
+                                {
+                                    prisoner.extraSentence = tempStorage;
+                                    ConsWriter.Write($"Success! {prisoner}");
+                                }
+                                return;
+                            }
+                            else
+                            {
+                                ConsWriter.Write($"{confirm} is not valid. Try again.");
+                            }
+                        }
+                    }
+                    else if (confirm.ToLower() == "n")
+                    {
+                        return;
+                    }
+
+                    ConsWriter.Write($"{confirm} is not valid try again");
+                }
+
+
+
+            }
+            else
+            {
+                ConsWriter.Write("INVALID ID!");
             }
         }
 
@@ -63,7 +141,7 @@ namespace Schneehoette_Terminal
             foreach (var prisoner in TerminalState.Prisoners)
             {
                 ConsWriter.Write(prisoner.ToString());
-                if (Console.ForegroundColor == ConsoleColor.Green) { Console.ForegroundColor = ConsoleColor.DarkGreen; }
+                if (Console.ForegroundColor == ConsoleColor.Green) { Console.ForegroundColor = ConsoleColor.White; }
 
                 else { Console.ForegroundColor = ConsoleColor.Green; }
             }
@@ -71,7 +149,7 @@ namespace Schneehoette_Terminal
             Console.ForegroundColor = ConsoleColor.Green;
         }
 
-        internal static void ExecuteSearchPrisoner(Guid prisonerId)
+        internal static Prisoner ExecuteSearchPrisoner(Guid prisonerId)
         {
             if(TerminalState.LoggedIn)
             {
@@ -79,12 +157,14 @@ namespace Schneehoette_Terminal
                 {
                     Prisoner prisoner = TerminalState.Prisoners.Single(p => p.Id == prisonerId);
                     ConsWriter.Write($"{prisoner.Id}: {prisoner}");
+                    return prisoner;
                 }
                 catch (ArgumentNullException)
                 {
                     ConsWriter.Write("PRISONER DOES NOT EXIST");
                 }
             }
+            return null;
         }
     }
 }
