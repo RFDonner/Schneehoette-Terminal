@@ -40,16 +40,16 @@ namespace Schneehoette_Terminal.Texts
 
         private static void InitFirstNames()
         {
-            FirstNames = new List<string> { "Suse", "Bartholomeus", "Martin", "Natascha", "Micha", "Reto", "Agnes", "Heinrich", "Lisbeth", "Camilla", "Jockel", "Hiltraud", "Heidrun", "Leonie",  };
+            FirstNames = new List<string> { "Robert", "Lukas", "Frank", "Dominik", "David", "Felix", "Felicia", "Jürgen", "Ralf", "Suse", "Bartholomeus", "Martin", "Natascha", "Micha", "Reto", "Agnes", "Heinrich", "Lisbeth", "Camilla", "Jockel", "Hiltraud", "Heidrun", "Leonie", "Arnold", "Bart", "Mark" };
         }
         private static void InitMiddleNames()
         {
-            MiddleNames = new List<string> { "Amadeus", "Friedrich", "Kornelis", "Seraphina", "Richard", "Konrad", "Titus", "Karl", "David", "Jolanthe", "Helene", "Winfried", "Heinrich", "Erwin",  };
+            MiddleNames = new List<string> { "Finn", "Ben", "Elias", "Anna", "Maria", "Hanna", "Leon", "Maximilian", "Nikolas",  "Amadeus", "Friedrich", "Kornelis", "Seraphina", "Richard", "Konrad", "Titus", "Karl", "David", "Jolanthe", "Helene", "Winfried", "Heinrich", "Erwin", "Friedrich", "Ferdinand"};
         }
 
         private static void InitSurnames()
         {
-            Surnames = new List<string> { "Thomas", "Wolfgang", "Grünewald", "Bachmann", "Löwe", "Kruger" , "Plank", "Seppel", "Baumgarten", "Blau", "Baier", "Königsmann", "Gabler", "Spellmayer" };
+            Surnames = new List<string> { "Müller", "Thomas", "Wolfgang", "Grünewald", "Bachmann", "Löwe", "Kruger" , "Plank", "Seppel", "Baumgarten", "Blau", "Baier", "Königsmann", "Gabler", "Spellmayer", "Tiroler", "Schaff", "Schneider", "Weber", "Wagner", "Becker", "Fischer", "Meyer" };
         }
 
     }
