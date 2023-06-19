@@ -15,7 +15,11 @@ namespace Schneehoette_Terminal
                 var key = Console.ReadKey(true);
                 if (key.Key == ConsoleKey.Enter)
                     break;
-                password += key.KeyChar;
+                if(key.Key == ConsoleKey.Backspace)
+                {
+                    password = password[..^1];
+                }
+                else password += key.KeyChar;
             }
 
             if (username == "schneehutte" && password == "Oktoberfest!")
