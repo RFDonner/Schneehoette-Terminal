@@ -6,7 +6,7 @@
         {
             if (string.IsNullOrEmpty(command))
             {
-                ConsWriter.Write("Kein Befehl gegeben, bitte versuchen Sie es nochmal.");
+                ConsWriter.WriteWarning("Kein Befehl gegeben, bitte versuchen Sie es nochmal.");
                 return;
             }
 
@@ -14,7 +14,7 @@
             switch (command)
             {
                 case "login":
-                    if (TerminalState.LoggedIn) ConsWriter.Write("Sie sind bereits angemeldet.");
+                    if (TerminalState.LoggedIn) ConsWriter.WriteWarning("Sie sind bereits angemeldet.");
                     else Commands.ExecuteLogin();
                     break;
                 case "logout":
@@ -45,7 +45,7 @@
                     Commands.ExecuteKill();
                     break;
                 default:
-                    ConsWriter.Write($"{command} ist unbekannt, bitte noch einmal versuchen.");
+                    ConsWriter.WriteWarning($"{command} ist unbekannt, bitte noch einmal versuchen.");
                     break;
             }
         }
@@ -54,7 +54,6 @@
         {
             if (!TerminalState.LoggedIn)
             {
-                ConsWriter.Write("Bitte einloggen");
                 return;
             }
 
@@ -65,7 +64,6 @@
         {
             if (!TerminalState.LoggedIn)
             {
-                ConsWriter.Write("Bitte einloggen");
                 return;
             }
             ConsWriter.Write("Id des Gefangenen einfügen");

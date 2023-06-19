@@ -83,7 +83,7 @@ namespace Schneehoette_Terminal
                             }
                             else
                             {
-                                ConsWriter.Write($"{confirm} ist nicht gültig. Bitte erneut versuchen.");
+                                ConsWriter.WriteWarning($"{confirm} ist nicht gültig. Bitte erneut versuchen.");
                             }
                         }
                     }
@@ -92,7 +92,7 @@ namespace Schneehoette_Terminal
                         return;
                     }
 
-                    ConsWriter.Write($"{confirm} ist nicht gültig. Bitte erneut versuchen.");
+                    ConsWriter.WriteWarning($"{confirm} ist nicht gültig. Bitte erneut versuchen.");
                 }
 
 

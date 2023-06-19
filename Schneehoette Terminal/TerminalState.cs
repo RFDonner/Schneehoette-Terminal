@@ -1,14 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Schneehoette_Terminal
+﻿namespace Schneehoette_Terminal
 {
     public static class TerminalState
     {
-        public static bool LoggedIn { get; set; } = false;
+        private static bool _loggedIn = false;
+        public static bool LoggedIn
+        {
+            get
+            {
+                if (!_loggedIn) { ConsWriter.WriteWarning("Bitte Einloggen."); } return _loggedIn;
+            }
+            set { _loggedIn = value; }
+        }
 
         public static List<Prisoner> Prisoners { get; set; } = new List<Prisoner>();
 
