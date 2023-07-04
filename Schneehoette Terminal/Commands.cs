@@ -7,7 +7,7 @@ namespace Schneehoette_Terminal
         internal static void ExecuteLogin()
         {
             ConsWriter.Write("Bitte geben Sie Ihren Benutzernamen ein");
-            string username = Console.ReadLine();
+            string? username = Console.ReadLine();
             ConsWriter.Write("Bitte geben Sie Ihren passwort");
             string password = string.Empty;
             while (true)
@@ -38,10 +38,10 @@ namespace Schneehoette_Terminal
         {
             ConsWriter.Write("Id des Gefangenen einfügen");
             var id = Console.ReadLine();
-            if (Guid.TryParse(id, out Guid guidId))
+            if (!string.IsNullOrEmpty(id) && IdGenerator.VerifyId(id))
             {
                 ConsWriter.Write($"Ändern:");
-                var prisoner = ExecuteSearchPrisoner(guidId);
+                var prisoner = ExecuteSearchPrisoner(id);
                 if (prisoner == null) { return; }
                 while (true)
                 {
@@ -87,7 +87,7 @@ namespace Schneehoette_Terminal
                             }
                         }
                     }
-                    else if (confirm.ToLower() == "n")
+                    else if (!string.IsNullOrEmpty(confirm) && confirm.ToLower() == "n")
                     {
                         return;
                     }
@@ -109,7 +109,7 @@ namespace Schneehoette_Terminal
             if (TerminalState.LoggedIn)
             {
                 ConsWriter.Write("Sind Sie sicher? Dies ist nicht wiederherstellbar. Bitte geben Sie ja ein, wenn Sie bestätigen möchten.");
-                string confirm = Console.ReadLine();
+                string? confirm = Console.ReadLine();
                 if (!string.IsNullOrEmpty(confirm) && confirm.ToLower() == "ja")
                 {
                     ConsWriter.Write("Ihr Vorgesetzter wird über die Zerstörung von Eigentum informiert. Verwenden Sie diesen Befehl nur in Notfällen. Bitte bestätigen Sie mit Ja");
@@ -147,13 +147,13 @@ namespace Schneehoette_Terminal
             Console.ForegroundColor = ConsoleColor.Green;
         }
 
-        internal static Prisoner ExecuteSearchPrisoner(Guid prisonerId)
+        internal static Prisoner ExecuteSearchPrisoner(string prisonerId)
         {
             if(TerminalState.LoggedIn)
             {
                 try
                 {
-                    Prisoner prisoner = TerminalState.Prisoners.Single(p => p.Id == prisonerId);
+                    Prisoner prisoner = TerminalState.Prisoners.Single(p => p.Id.Equals(prisonerId));
                     ConsWriter.Write($"{prisoner.Id}: {prisoner}");
                     return prisoner;
                 }
