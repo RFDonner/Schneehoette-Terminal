@@ -13,12 +13,12 @@ namespace Schneehoette_Terminal
         private static readonly int yearMin = 18;
         private static readonly int yearMax = 83;
 
-        private static readonly int codeMax = 5;
+        private static readonly int codeMax = 6;
 
-        private static Dictionary<int, int> IterateCounter = new Dictionary<int, int>();
+        private static readonly Dictionary<int, int> IterateCounter = new();
         public static string GenerateId(bool IsDeadrow = false)
         {
-            int digit = rand.Next(yearMin, yearMax + 1);
+            int digit = rand.Next(yearMin, yearMax);
             string first = $"0{digit}";
             string startSecond = IsDeadrow ? "2" : "1" ;
             string second = $"{startSecond}0{rand.Next(1,codeMax + 1)}";

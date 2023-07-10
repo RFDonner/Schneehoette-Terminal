@@ -7,7 +7,8 @@
         {
             get
             {
-                if (!_loggedIn) { ConsWriter.WriteWarning("Bitte Einloggen."); } return _loggedIn;
+                if (!_loggedIn) { ConsWriter.WriteWarning("Bitte Einloggen."); }
+                return _loggedIn;
             }
             set { _loggedIn = value; }
         }
@@ -16,12 +17,7 @@
 
         public static void InitPrisoners()
         {
-            for (int i = 0; i < 100; i++)
-            {
-                Prisoners.Add(new Prisoner());
-            }
-
-            List<Prisoner> playerPrisoners = new List<Prisoner>
+            List<Prisoner> playerPrisoners = new()
             {
                 {new Prisoner("083-102-118", "Jenna Mignon", SentenceState.Verdachtig) },
                 {new Prisoner("083-102-119", "André Bax", SentenceState.Allgemein) },
@@ -36,7 +32,24 @@
                 {new Prisoner("083-102-128", "Bass Lennard", SentenceState.Politisch) }
             };
 
+            List<Prisoner> npcPrisoners = new()
+            {
+                { new Prisoner("045-104-111", "P. Malloy", SentenceState.Staatsfeind)   },
+                { new Prisoner("063-101-111", "P. Merkel", SentenceState.Staatsfeind)   },
+                { new Prisoner("073-101-112", "F. Reilch", SentenceState.Politisch)     },
+                { new Prisoner("079-204-113", "C. Clarke", SentenceState.Todestrakt)    },
+                { new Prisoner("081-101-111", "M. Schuhweiss", SentenceState.Allgemein) },
+                { new Prisoner("083-206-112", "L. Krasinski", SentenceState.Todestrakt) },
+                { new Prisoner("083-101-115", "D. Koch", SentenceState.Staatsfeind)     }
+            };
             Prisoners.AddRange(playerPrisoners);
+            Prisoners.AddRange(npcPrisoners);
+
+            for (int i = 0; i < 100; i++)
+            {
+                Prisoners.Add(new Prisoner());
+            }
+
             Prisoners = Prisoners.OrderBy(p => p.Id).ToList();
         }
     }
