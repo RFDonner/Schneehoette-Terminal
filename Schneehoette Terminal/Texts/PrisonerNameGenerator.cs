@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace Schneehoette_Terminal.Texts
 {
@@ -40,16 +36,16 @@ namespace Schneehoette_Terminal.Texts
 
         private static void InitFirstNames()
         {
-            FirstNames = new List<string> { "Robert", "Lukas", "Frank", "Dominik", "David", "Felix", "Felicia", "Jürgen", "Ralf", "Suse", "Bartholomeus", "Martin", "Natascha", "Micha", "Reto", "Agnes", "Heinrich", "Lisbeth", "Camilla", "Jockel", "Hiltraud", "Heidrun", "Leonie", "Arnold", "Bart", "Mark" };
+            FirstNames = new List<string> { "Robert", "Amber", "Mark", "Lukas", "Frank", "Dominik", "David", "Felix", "Felicia", "Jürgen", "Ralf", "Suse", "Bartholomeus", "Martin", "Natascha", "Micha", "Reto", "Agnes", "Heinrich", "Lisbeth", "Camilla", "Jockel", "Hiltraud", "Heidrun", "Leonie", "Arnold", "Bart", "Mark" };
         }
         private static void InitMiddleNames()
         {
-            MiddleNames = new List<string> { "Finn", "Ben", "Elias", "Anna", "Maria", "Hanna", "Leon", "Maximilian", "Nikolas",  "Amadeus", "Friedrich", "Kornelis", "Seraphina", "Richard", "Konrad", "Titus", "Karl", "David", "Jolanthe", "Helene", "Winfried", "Heinrich", "Erwin", "Friedrich", "Ferdinand"};
+            MiddleNames = new List<string> { "Finn", "Tamara", "Friedrich", "Ben", "Elias", "Anna", "Maria", "Hanna", "Leon", "Maximilian", "Nikolas",  "Amadeus", "Friedrich", "Kornelis", "Seraphina", "Richard", "Konrad", "Titus", "Karl", "David", "Jolanthe", "Helene", "Winfried", "Heinrich", "Erwin", "Friedrich", "Ferdinand"};
         }
 
         private static void InitSurnames()
         {
-            Surnames = new List<string> { "Müller", "Thomas", "Wolfgang", "Grünewald", "Bachmann", "Löwe", "Kruger" , "Plank", "Seppel", "Baumgarten", "Blau", "Baier", "Königsmann", "Gabler", "Spellmayer", "Tiroler", "Schaff", "Schneider", "Weber", "Wagner", "Becker", "Fischer", "Meyer" };
+            Surnames = new List<string> { "Müller", "Abeelen", "Post", "Donner", "Thomas", "Wolfgang", "Grünewald", "Bachmann", "Löwe", "Kruger" , "Plank", "Seppel", "Baumgarten", "Blau", "Baier", "Königsmann", "Gabler", "Spellmayer", "Tiroler", "Schaff", "Schneider", "Weber", "Wagner", "Becker", "Fischer", "Meyer" };
         }
 
     }

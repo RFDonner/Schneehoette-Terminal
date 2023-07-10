@@ -5,30 +5,36 @@ namespace Schneehoette_Terminal
 {
     public class Prisoner
     {
-        public readonly Guid Id;
+        public readonly string Id;
         public readonly string name;
         public SentenceState sentence;
         public SentenceState extraSentence;
 
         static readonly Random _R = new Random();
-        public Prisoner(Guid id, string name, SentenceState state)
+        public Prisoner(string id, string name, SentenceState state)
         {
 
-            this.Id = id;
+            Id = id;
             sentence = state;
             this.name = name;
         }
         public Prisoner()
         {
-            Id = Guid.NewGuid();
             sentence = PickSentenceState();
             name = PrisonerNameGenerator.GenerateName();
+            Id = sentence == SentenceState.Todestrakt ? IdGenerator.GenerateId(true) : IdGenerator.GenerateId(false);
         }
 
         public SentenceState PickSentenceState(bool isExtraSentence = false)
         {
             var v = Enum.GetValues(typeof(SentenceState));
-            var extra = (SentenceState)v.GetValue(_R.Next(v.Length));
+            SentenceState? extra = (SentenceState?)v.GetValue(_R.Next(v.Length));
+
+            if (!extra.HasValue)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
             if ((extra == SentenceState.Todestrakt || extra == SentenceState.Freigegeben || extra == SentenceState.Tod) && isExtraSentence)
             {
                 return PickSentenceState(true);
@@ -37,13 +43,13 @@ namespace Schneehoette_Terminal
             {
                 extraSentence =  PickSentenceState(true);
             }
-            return extra;
+            return extra.Value;
         }
 
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append($"{name}: {sentence}");
+            sb.Append($"{Id} {name}: {sentence}");
             sb.Append(extraSentence == SentenceState.Todestrakt ? string.Empty : ", " + extraSentence);
             return sb.ToString();
         }

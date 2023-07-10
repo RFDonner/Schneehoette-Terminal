@@ -68,9 +68,9 @@
             }
             ConsWriter.Write("Id des Gefangenen einfügen");
             var id = Console.ReadLine();
-            if (Guid.TryParse(id, out Guid guidId))
+            if (!string.IsNullOrEmpty(id) && IdGenerator.VerifyId(id))
             {
-                Commands.ExecuteSearchPrisoner(guidId);
+                Commands.ExecuteSearchPrisoner(id);
             }
             else
             {
