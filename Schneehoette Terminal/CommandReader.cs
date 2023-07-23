@@ -28,6 +28,7 @@
                     ConsWriter.Write("SEARCH - Suche nach einem Häftling anhand der Identität");
                     ConsWriter.Write("CHANGE - Ändert die Registrierung des Häftlings nach Angabe der Identität");
                     ConsWriter.Write("KILL - Zerstört das Terminal (NOTIFY AN SL IF YOU USE THIS COMMAND)");
+                    if(TerminalState.Hacked) { ConsWriter.WriteWarning("PROBE - GET THE ENCRYPTED USERNAME AND PASSWORD FROM THE LAST USER. DECRYPTS PART OF THE LOGS EVERY RUN, BUT RUNS SLOWER EVERY ITERATION."); }
                     break;
                 case "hilfe":
                     ConsWriter.WriteError("ERROR EXECUTING hilfe! DID YOU MEAN help?");
@@ -43,6 +44,12 @@
                     break;
                 case "kill":
                     Commands.ExecuteKill();
+                    break;
+                case "probe":
+                    Commands.ExecuteProbe();
+                    break;
+                case "hack":
+                    TerminalState.Hacked = true;
                     break;
                 default:
                     ConsWriter.WriteWarning($"{command} ist unbekannt, bitte noch einmal versuchen.");

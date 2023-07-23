@@ -1,4 +1,5 @@
 ﻿using Schneehoette_Terminal.Texts;
+using System.Text;
 
 namespace Schneehoette_Terminal
 {
@@ -22,7 +23,7 @@ namespace Schneehoette_Terminal
                 else password += key.KeyChar;
             }
 
-            if (username == "schneehutte" && password == "Oktoberfest!")
+            if (username.ToLower() == "schneehutte" && password == "L3kk3r83kj3!" || password == "Oktoberfest!")
             {
                 TerminalState.LoggedIn = true;
             }
@@ -167,6 +168,39 @@ namespace Schneehoette_Terminal
                 }
             }
             return null;
+        }
+
+        internal static void ExecuteProbe()
+        {
+            if (!TerminalState.Hacked) return;
+
+            Random rand = new();
+            ConsWriter.DelayTimer = 1 * (int)(Math.Pow(TerminalState.probeAmount + 1, TerminalState.probeAmount + 1));
+            int characterAmount = 400 - (100 * TerminalState.probeAmount);
+            if (characterAmount < ProbeText.userText.Length) characterAmount = ProbeText.userText.Length;
+            int spacing = (characterAmount / ProbeText.userText.Length) - 1;
+            int iterator = 0;
+            int charIterator = 0;
+            StringBuilder randomCharacters = new();
+            while (characterAmount > 0)
+            {
+                if(iterator == spacing && ProbeText.userText.Length > charIterator)
+                {
+                    randomCharacters.Append(ProbeText.userText[charIterator]);
+                    charIterator++;
+                    iterator = 0;
+                }
+                else
+                {
+                    iterator++;
+                    int index = rand.Next(0, ProbeText.text.Length);
+                    randomCharacters.Append(ProbeText.text[index]);
+                }
+                characterAmount--;
+            }
+            TerminalState.probeAmount++;
+            ConsWriter.WriteError(randomCharacters.ToString());
+            ConsWriter.DelayTimer = 10;
         }
     }
 }

@@ -6,7 +6,7 @@ PrisonerNameGenerator.InitNameGenerator();
 TerminalState.InitPrisoners();
 while (true)
 {
-    if (TerminalState.LoggedIn)
+    if (TerminalState.NoTextLoggedIn)
     {
         ConsWriter.Write("Wilkommen zu Terminal 442, Schneehütte, Bitte geben Sie einen Befehl ein.");
     }
